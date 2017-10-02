@@ -1,0 +1,30 @@
+<div class="cardView">
+    <md-grid-list [cols]="3" [rowHeight]="'200px'">
+      <md-grid-tile *ngFor="let item of (items | tag: tags) | search:searchTerm" [colspan]="1 " [rowspan]="1 " class="colo-tile ">
+        <md-card class="detail-card">
+          <md-card-header>
+            <div md-card-avatar [ngClass]="getLogo(item) "></div>
+            <p style="margin-left: 10px"> <b> {{item[idKey]}} </b> </p>
+            <div class="right-reqs">
+              <button md-button color=primary [routerLink]="[ '/' + route() + '/detail', item[idKey]] ">
+                  <md-icon>edit</md-icon>
+                  </button>
+            </div>
+          </md-card-header>
+          <md-card-content>
+            <p>
+              {{item[descriptionKey]|cutChar:150}}
+            </p>
+            <br *ngIf="item[descriptionKey].length < 75">
+            <div class="chips">
+              <md-chip-list *ngFor="let enum of item[enumKey] ">
+                <md-chip class="chip chip-hover chip-select " (click)="tagOn(enum) ">
+                  {{enum}}
+                </md-chip>
+              </md-chip-list>
+            </div>
+          </md-card-content>
+        </md-card>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
